@@ -1,24 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wanderlust</title>
-  </head>
-  <body>
-    <h3>Listing Details :</h3>
-    <ul>
-      <li><%= listing.title %></li>
-      <li><%= listing.description %></li>
-      <li>&#8377; <%= listing.price.toLocaleString("en-IN") %></li>
-      <li><%= listing.location %></li>
-      <li><%= listing.country %></li>
-    </ul>
-    <br />
-    <a href="/listings/<%= listing._id %>/edit">Edit this Listing</a>
-    <br /><br />
-    <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
-      <button>Delete this listing</button>
-    </form>
-  </body>
-</html>
+<!-- @format -->
+
+<% layout('/layouts/boilerplate') %>
+
+<body>
+  <h3
+    style="
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    "
+  >
+    <i><%= listing.title %></i>
+  </h3>
+
+  <div class="row mt-3">
+    <div class="col-lg-8 col-10 offset-md-2" style="margin: 0 auto">
+      <div
+        class="card show-card col-10 col-lg-8 offset-md-2"
+        style="margin: 0 auto"
+      >
+        <img
+          class="card-img-top show-img"
+          src="<%=listing.image.url%>"
+          alt="Listing Image"
+        />
+        <div class="card-body">
+          <p class="card-text" style="color: rgb(37, 37, 37); font-size: 1rem">
+            <span class="show-details">Owned by:</span>
+            <strong><%= listing.owner.username %></strong> <br />
+            <span class="show-details">Description: </span>
+            <%= listing.description %> <br />
+            <span class="show-details">Charge: </span>
+            ₹<%= listing.price.toLocaleString("en-IN") %>/Day <br />
+            <span class="show-details">Location: </span>
+            <%= listing.location %> <br />
+            <span class="show-details">Country: </span>
+            <%= listing.country %>
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="col-lg-8 col-10 offset-md-2"
+        style="
+          margin: 0px auto;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          flex-wrap: wrap;
+        "
+      >
+        <a
+          class="btn btn-info"
+          style="font-weight: 500"
+          href="/listings/<%=listing._id%>/edit"
+          >Edit this listing</a
+        >
+        <br /><br />
+        <form action="/listings/<%=listing._id%>?_method=delete" method="post">
+          <button class="btn btn-danger" style="font-weight: 500">
+            Delete this listing
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
